@@ -35,20 +35,26 @@ export const WeatherApp = () => {
                     </button>
             </div>
             </form>
-            {dataClima && Object.keys(dataClima).length > 0 ? ( // Verifica si dataClima tiene datos
-                <div>
-                    <h3>{dataClima.name}{dataClima.sys && dataClima.sys.country ? `, ${dataClima.sys.country}` : ''}</h3>
-                    <p><span className='spanP'>Temperatura:</span> {dataClima.main ? ((dataClima.main.temp - 273.15).toFixed(2) + "°C") : "N/A"}</p>
-                    <p><span className='spanP'>Mínima / Máxima:</span> {dataClima.main ? ((dataClima.main.temp_min - 273.15).toFixed(2) + "°C / " + (dataClima.main.temp_max - 273.15).toFixed(2) + "°C") : "N/A"}</p>
-                    <p><span className='spanP'>Humedad:</span> {dataClima.main ? (dataClima.main.humidity + "%") : "N/A"}</p>
-                    <p className='climaActual'><span className='spanP'>Clima actual:</span> {dataClima.weather && dataClima.weather[0] ? dataClima.weather[0].main : "N/A"}<img src={dataClima.weather && dataClima.weather[0] ? `https://openweathermap.org/img/wn/${dataClima.weather[0].icon}@2x.png` : ""} alt="Weather Icon"></img></p>
-                    <p><span className='spanP'>Descripción:</span> {dataClima.weather && dataClima.weather[0] ? dataClima.weather[0].description : "N/A"}</p>
-                </div>
-            ) : (
-                <div>
-                    <h3>😟 no encontramos lo que querías{dataError}</h3>
-                </div>
-            )}
+            {dataClima && Object.keys(dataClima).length > 0 ? (
+    dataClima.cod === '404' ? (
+        <div>
+            <h3>Lo sentimos, no encontramos nada 😔</h3>
+        </div>
+    ) : (
+        <div>
+            <h3>{dataClima.name}{dataClima.sys && dataClima.sys.country ? `, ${dataClima.sys.country}` : ''}</h3>
+            <p><span className='spanP'>Temperatura:</span> {dataClima.main ? ((dataClima.main.temp - 273.15).toFixed(2) + "°C") : "Sin Resultados"}</p>
+            <p><span className='spanP'>Mínima / Máxima:</span> {dataClima.main ? ((dataClima.main.temp_min - 273.15).toFixed(2) + "°C / " + (dataClima.main.temp_max - 273.15).toFixed(2) + "°C") : "Sin resultados"}</p>
+            <p><span className='spanP'>Humedad:</span> {dataClima.main ? (dataClima.main.humidity + "%") : "Sin Resultados"}</p>
+            <p className='climaActual'><span className='spanP'>Clima actual:</span> {dataClima.weather && dataClima.weather[0] ? dataClima.weather[0].main : "Sin Resultados"}<img src={dataClima.weather && dataClima.weather[0] ? `https://openweathermap.org/img/wn/${dataClima.weather[0].icon}@2x.png` : ""} alt="Weather Icon"></img></p>
+            <p><span className='spanP'>Descripción:</span> {dataClima.weather && dataClima.weather[0] ? dataClima.weather[0].description : "Sin Resultados"}</p>
+        </div>
+    )
+) : (
+    <div>
+        <h3>{dataError}</h3>
+    </div>
+)}
         </div>
     );
 }

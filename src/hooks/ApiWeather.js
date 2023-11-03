@@ -15,7 +15,7 @@ export const useWeather = () => {
             const data = await response.json();
             setDataClima(data);
         } catch (error) {
-            setDataError(error);
+            setDataError('No encontramos nada 😔',error);
         }
     }
 
